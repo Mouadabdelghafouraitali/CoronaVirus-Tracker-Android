@@ -9,4 +9,8 @@
     <color name="TodayDeathsColor">#dc3545</color>
     <color name="RecoveredColor">#28a745</color>
     <color name="CriticalColor">#FF9800</color>
+
+    <color name="ActiveColor">#9C27B0</color>
+    <color name="CasesPerOneMillionColor">#00BCD4</color>
+
 </resources>

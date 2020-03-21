@@ -44,7 +44,7 @@ class CoronaAdapter(
             data: ArrayList<Complete>
         ) {
             this.data = data
-            mNum.setText(String.format("%,d", Integer.parseInt(data.get(position).cases)));
+            mNum.setText(String.format("%,d", (data.get(position).cases)));
             mCountry.setText(data.get(position).country);
         }
         init {
@@ -59,6 +59,8 @@ class CoronaAdapter(
             Go.putExtra("TodayDeaths", data.get(adapterPosition).todayDeaths)
             Go.putExtra("Recovered", data.get(adapterPosition).recovered)
             Go.putExtra("Critical", data.get(adapterPosition).critical)
+            Go.putExtra("Active", data.get(adapterPosition).active)
+            Go.putExtra("CasesPerOneMillion", data.get(adapterPosition).casesPerOneMillion)
             v.context.startActivity(Go)
         }
     }

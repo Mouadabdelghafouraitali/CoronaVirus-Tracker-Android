@@ -29,13 +29,14 @@ class Details : AppCompatActivity(), OnChartValueSelectedListener {
     private lateinit var activityDetailsBinding: ActivityDetailsBinding
     private lateinit var chart: BarChart
     private lateinit var Country: String
-    private lateinit var Cases: String
-    private lateinit var TodayCases: String
-    private lateinit var Deaths: String
-    private lateinit var TodayDeaths: String
-    private lateinit var Recovered: String
-    private lateinit var Critical: String
-
+    private var Cases: Int = 0
+    private var TodayCases: Int = 0
+    private var Deaths: Int = 0
+    private var TodayDeaths: Int = 0
+    private var Recovered: Int = 0
+    private var Critical: Int = 0
+    private var Active: Int = 0
+    private var CasesPerOneMillion: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,38 +67,50 @@ class Details : AppCompatActivity(), OnChartValueSelectedListener {
         changeColorOfString(
             activityDetailsBinding.Cases,
             "• Cases : ",
-            String.format("%,d", (Integer.parseInt(Cases))),
+            String.format("%,d", (Cases)),
             getResources().getColor(R.color.CasesColor)
         );
         changeColorOfString(
             activityDetailsBinding.TodayCases,
             "• Today cases : ",
-            String.format("%,d", (Integer.parseInt(TodayCases))),
+            String.format("%,d", (TodayCases)),
             getResources().getColor(R.color.TodayCasesColor)
         );
         changeColorOfString(
             activityDetailsBinding.Deaths,
             "• Deaths : ",
-            String.format("%,d", (Integer.parseInt(Deaths))),
+            String.format("%,d", (Deaths)),
             getResources().getColor(R.color.DeathsColor)
         );
         changeColorOfString(
             activityDetailsBinding.TodayDeaths,
             "• Today deaths : ",
-            String.format("%,d", (Integer.parseInt(TodayCases))),
+            String.format("%,d", (TodayDeaths)),
             getResources().getColor(R.color.TodayDeathsColor)
         );
         changeColorOfString(
             activityDetailsBinding.recovered,
             "• Recovered : ",
-            String.format("%,d", (Integer.parseInt(Recovered))),
+            String.format("%,d", (Recovered)),
             getResources().getColor(R.color.RecoveredColor)
         );
         changeColorOfString(
             activityDetailsBinding.Critical,
             "• Critical : ",
-            String.format("%,d", (Integer.parseInt(Critical))),
+            String.format("%,d", (Critical)),
             getResources().getColor(R.color.CriticalColor)
+        );
+        changeColorOfString(
+            activityDetailsBinding.active,
+            "• Active : ",
+            String.format("%,d", (Active)),
+            getResources().getColor(R.color.ActiveColor)
+        );
+        changeColorOfString(
+            activityDetailsBinding.casesPerOneMillion,
+            "• Cases per one million : ",
+            String.format("%,d", (CasesPerOneMillion)),
+            getResources().getColor(R.color.CasesPerOneMillionColor)
         );
 
     }
@@ -105,32 +118,38 @@ class Details : AppCompatActivity(), OnChartValueSelectedListener {
     private fun getAllData() {
         if (intent != null) {
             Country = intent.getStringExtra("Country");
-            Cases = intent.getStringExtra("Cases");
-            TodayCases = intent.getStringExtra("TodayCases");
-            Deaths = intent.getStringExtra("Deaths");
-            TodayDeaths = intent.getStringExtra("TodayDeaths");
-            Recovered = intent.getStringExtra("Recovered");
-            Critical = intent.getStringExtra("Critical");
+            Cases = intent.getIntExtra("Cases", 0)
+            TodayCases = intent.getIntExtra("TodayCases", 0)
+            Deaths = intent.getIntExtra("Deaths", 0)
+            TodayDeaths = intent.getIntExtra("TodayDeaths", 0)
+            Recovered = intent.getIntExtra("Recovered", 0)
+            Critical = intent.getIntExtra("Critical", 0)
+            Active = intent.getIntExtra("Active", 0)
+            CasesPerOneMillion = intent.getIntExtra("CasesPerOneMillion", 0)
             setData(
-                Integer.parseInt(Cases),
-                Integer.parseInt(TodayCases),
-                Integer.parseInt(Deaths),
-                Integer.parseInt(TodayDeaths),
-                Integer.parseInt(Recovered),
-                Integer.parseInt(Critical)
-            );
+                Cases,
+                TodayCases,
+                Deaths,
+                TodayDeaths,
+                Recovered,
+                Critical,
+                Active,
+                CasesPerOneMillion
+            )
         }
 
 
     }
 
-    public fun setData(
+    fun setData(
         Cases: Int,
         TodayCases: Int,
         Deaths: Int,
         TodayDeaths: Int,
         Recovered: Int,
-        Critical: Int
+        Critical: Int,
+        Active: Int,
+        CasesPerOneMillion: Int
     ) {
 
         val values = ArrayList<BarEntry>()
@@ -140,6 +159,8 @@ class Details : AppCompatActivity(), OnChartValueSelectedListener {
         values.add(BarEntry(3f, TodayDeaths.toFloat()))
         values.add(BarEntry(4f, Recovered.toFloat()))
         values.add(BarEntry(5f, Critical.toFloat()))
+        values.add(BarEntry(6f, Active.toFloat()))
+        values.add(BarEntry(7f, CasesPerOneMillion.toFloat()))
 
         var set1: BarDataSet
         if (chart.getData() != null &&
@@ -159,6 +180,8 @@ class Details : AppCompatActivity(), OnChartValueSelectedListener {
             colors.add(getResources().getColor(R.color.TodayDeathsColor));
             colors.add(getResources().getColor(R.color.RecoveredColor));
             colors.add(getResources().getColor(R.color.CriticalColor));
+            colors.add(getResources().getColor(R.color.ActiveColor));
+            colors.add(getResources().getColor(R.color.CasesPerOneMillionColor));
             set1.setColors(colors);
             val dataSets: ArrayList<IBarDataSet> = ArrayList<IBarDataSet>();
             dataSets.add(set1);

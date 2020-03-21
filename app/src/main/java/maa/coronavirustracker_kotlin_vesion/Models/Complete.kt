@@ -5,10 +5,12 @@ import com.google.gson.annotations.SerializedName
 
 data class Complete(
     @SerializedName("country") val country: String,
-    @SerializedName("recovered") val recovered: String,
-    @SerializedName("cases") val cases: String,
-    @SerializedName("critical") val critical: String,
-    @SerializedName("deaths") val deaths: String,
-    @SerializedName("todayCases") val todayCases: String,
-    @SerializedName("todayDeaths") val todayDeaths: String
+    @SerializedName("recovered") val recovered: Int,
+    @SerializedName("cases") val cases: Int,
+    @SerializedName("critical") val critical: Int,
+    @SerializedName("deaths") val deaths: Int,
+    @SerializedName("todayCases") val todayCases: Int,
+    @SerializedName("todayDeaths") val todayDeaths: Int,
+    @SerializedName("active") val active: Int,
+    @SerializedName("casesPerOneMillion") val casesPerOneMillion: Int
 )

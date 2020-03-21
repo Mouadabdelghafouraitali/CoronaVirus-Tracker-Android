@@ -55,7 +55,9 @@ class CoronaViewModel : ViewModel() {
                                     response.body()!![i].critical,
                                     response.body()!![i].deaths,
                                     response.body()!![i].todayCases,
-                                    response.body()!![i].todayDeaths
+                                    response.body()!![i].todayDeaths,
+                                    response.body()!![i].active,
+                                    response.body()!![i].casesPerOneMillion
                                 )
                             )
                             mutableCompleteLiveData.setValue(mData)

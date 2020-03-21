@@ -138,13 +138,38 @@
                                 android:textColor="#000"
                                 android:textSize="16sp" />
                         </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/Critical"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/Critical"
+                                android:layout_width="0dp"
+                                android:layout_weight="1.0"
+                                android:layout_height="wrap_content"
+                                android:text="• Critical : -"
+                                android:textColor="#000"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/active"
+                                android:layout_width="0dp"
+                                android:layout_weight="1.0"
+                                android:layout_height="wrap_content"
+                                android:text="• Active : -"
+                                android:textColor="#000"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/casesPerOneMillion"
                             android:layout_marginBottom="10dp"
-                            android:text="• Critical : -"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1.0"
+                            android:layout_height="wrap_content"
+                            android:text="• Cases Per One Million : -"
                             android:textColor="#000"
                             android:textSize="16sp" />
                     </LinearLayout>
