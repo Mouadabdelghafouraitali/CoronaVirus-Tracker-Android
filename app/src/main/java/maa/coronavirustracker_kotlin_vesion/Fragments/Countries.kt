@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -48,13 +47,6 @@ class Countries : Fragment() {
         coronaViewModel.mutableCountriesLiveData.observe(this.viewLifecycleOwner,
             object : Observer<ArrayList<Country>> {
                 override fun onChanged(listCountries: ArrayList<Country>?) {
-
-                    Toast.makeText(
-                        context,
-                        "SLAM : " + listCountries!!.trimToSize(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-
                     progressBar.visibility = View.GONE
                     countriesAdapter = CountriesAdapter(
                         activity!!.applicationContext,

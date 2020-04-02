@@ -1,35 +1,40 @@
 package maa.coronavirustracker_kotlin_vesion.Data
 
-import maa.coronavirustracker_kotlin_vesion.Constants.BASEURL
-import maa.coronavirustracker_kotlin_vesion.Models.Complete
-import maa.coronavirustracker_kotlin_vesion.Models.Resume
+import maa.coronavirustracker_kotlin_vesion.Model.All
+import maa.coronavirustracker_kotlin_vesion.Model.Country
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
 class CoronaClient {
-    private val mCoronaInterface: CoronaInterface
 
-    val coronaCompleteInformation: Call<List<Complete>> get() = mCoronaInterface.getCoronaVirusCompleteInformation()
-    val coronaResumeInformation: Call<Resume> get() = mCoronaInterface.getCoronaVirusResumeInformation()
-
-    //? means this variable may be it will be null
-    companion object {
-        private var mCoronaClient: CoronaClient? = null
-        val coronaClient: CoronaClient? get() =
-            if (mCoronaClient != null)
-                mCoronaClient
-            else {
-                mCoronaClient = CoronaClient()
-                mCoronaClient
-            }
-    }
+    private var mCoronaInterface: CoronaInterface? = null
 
 
     init {
-        val mRetrofit: Retrofit = Retrofit.Builder().baseUrl(BASEURL)
+        val mRetrofit: Retrofit = Retrofit.Builder().baseUrl("https://corona.lmao.ninja/")
             .addConverterFactory(GsonConverterFactory.create()).build()
         mCoronaInterface = mRetrofit.create(CoronaInterface::class.java)
     }
+
+    companion object {
+        private var mCoronaClient: CoronaClient? = null
+        fun getCoronaClient(): CoronaClient? {
+            return if (mCoronaClient != null) mCoronaClient else {
+                mCoronaClient = CoronaClient()
+                mCoronaClient
+            }
+        }
+    }
+
+
+    fun getCoronaAllInformation(): Call<All> {
+        return mCoronaInterface!!.getCoronaVirusAllInformation()
+    }
+
+    fun getCoronaVirusByCountriesInformation(): Call<ArrayList<Country>> {
+        return mCoronaInterface!!.getCoronaVirusByCountriesInformation()
+    }
+
 }
