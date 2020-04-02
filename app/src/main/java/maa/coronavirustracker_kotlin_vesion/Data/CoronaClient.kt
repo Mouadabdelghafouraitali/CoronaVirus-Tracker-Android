@@ -14,7 +14,6 @@ class CoronaClient {
     val coronaCompleteInformation: Call<List<Complete>> get() = mCoronaInterface.getCoronaVirusCompleteInformation()
     val coronaResumeInformation: Call<Resume> get() = mCoronaInterface.getCoronaVirusResumeInformation()
 
-    //? means this variable may be it will be null
     companion object {
         private var mCoronaClient: CoronaClient? = null
         val coronaClient: CoronaClient? get() =
