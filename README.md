@@ -21,7 +21,7 @@ Shows you the following :
 <img src="https://i.imgur.com/cQ0p8cr.jpg" width="250">
 
 
-# API used 
+# Used API  
 
 https://corona.lmao.ninja/ 
 
