@@ -1,4 +1,4 @@
-# CoronaVirus Tracker Android App
+# 🦠 CoronaVirus Tracker Android App
 
 A simple tracker app to get the live statistics of the **Novel Coronavirus**
 
