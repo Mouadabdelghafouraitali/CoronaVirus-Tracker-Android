@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Overview"
+        android:icon="@drawable/overview"
+        android:title="OVERVIEW" />
+    <item
+        android:id="@+id/Countries"
+        android:icon="@drawable/countries"
+        android:title="COUNTRIES" />
+    <item
+        android:id="@+id/map"
+        android:icon="@drawable/map"
+        android:title="MAP" />
+</menu>
