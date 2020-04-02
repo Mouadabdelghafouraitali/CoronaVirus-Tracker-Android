@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "maa.coronavirustracker_kotlin_vesion"
-        minSdkVersion 15
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -36,6 +36,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7'
+    implementation 'com.robinhood.ticker:ticker:2.0.2'
+    implementation 'com.github.Deishelon:RoundedBottomSheet:1.0.1'
+    implementation 'com.github.alirezaashrafi:GoogleMapView:1.0.4'
     implementation 'com.squareup.retrofit2:retrofit:2.7.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.11.0'
