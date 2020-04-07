@@ -4,5 +4,5 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="geodecode">AIzaSyB4Wey9PCwbLeQoR1dUcYNjHlNinC6GC7s</string>
+    <string name="geodecode">YOUR API KEY HERE</string>
 </resources>
