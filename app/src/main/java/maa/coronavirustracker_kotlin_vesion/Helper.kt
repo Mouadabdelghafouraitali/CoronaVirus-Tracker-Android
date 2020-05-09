@@ -6,7 +6,7 @@ import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 
 class Helper {
-    public fun setCustomColor(
+    fun setCustomColor(
         textView: TextView,
         label: String,
         value: String,
