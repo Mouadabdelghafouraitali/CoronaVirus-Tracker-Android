@@ -2,14 +2,10 @@ package maa.coronavirustracker_kotlin_vesion.Fragments
 
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +17,7 @@ import kotlinx.android.synthetic.main.bottom_dialog.*
 import kotlinx.android.synthetic.main.itemcountry.countryFlag
 import kotlinx.android.synthetic.main.itemcountry.countryName
 import maa.coronavirustracker_kotlin_vesion.Adapter.CountriesAdapter
+import maa.coronavirustracker_kotlin_vesion.Helper
 import maa.coronavirustracker_kotlin_vesion.Interfaces.RecyclerViewOnClickListener
 import maa.coronavirustracker_kotlin_vesion.Model.Country
 import maa.coronavirustracker_kotlin_vesion.R
@@ -36,6 +33,7 @@ class Countries : Fragment() {
     lateinit var layoutManager: RecyclerView.LayoutManager
     lateinit var countriesAdapter: CountriesAdapter
     lateinit var coronaViewModel: CoronaViewModel
+    lateinit var helper: Helper
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,66 +54,7 @@ class Countries : Fragment() {
                                 position: Int,
                                 country: ArrayList<Country>?
                             ) {
-                                val mBottomSheetDialog = RoundedBottomSheetDialog(root.context)
-                                val sheetView = LayoutInflater.from(context)
-                                    .inflate(R.layout.bottom_dialog, null)
-                                mBottomSheetDialog.setContentView(sheetView)
-                                Glide.with(activity!!.applicationContext)
-                                    .load(country!![position].countryInfo.flag)
-                                    .into(mBottomSheetDialog.countryFlag)
-                                mBottomSheetDialog.countryName.setText(country[position].country)
-
-                                setCustomColor(
-                                    mBottomSheetDialog.Cases,
-                                    "• Cases : ",
-                                    String.format("%,d", (country[position].cases)),
-                                    getResources().getColor(R.color.CasesColor)
-                                )
-                                setCustomColor(
-                                    mBottomSheetDialog.TodayCases,
-                                    "• Today cases : ",
-                                    String.format("%,d", (country[position].todayCases)),
-                                    getResources().getColor(R.color.TodayCasesColor)
-                                )
-                                setCustomColor(
-                                    mBottomSheetDialog.Deaths,
-                                    "• Deaths : ",
-                                    String.format("%,d", (country[position].deaths)),
-                                    getResources().getColor(R.color.DeathsColor)
-                                )
-                                setCustomColor(
-                                    mBottomSheetDialog.TodayDeaths,
-                                    "• Today deaths : ",
-                                    String.format("%,d", (country[position].todayDeaths)),
-                                    getResources().getColor(R.color.TodayDeathsColor)
-                                )
-                                setCustomColor(
-                                    mBottomSheetDialog.recovered,
-                                    "• Recovered : ",
-                                    String.format("%,d", (country[position].recovered)),
-                                    getResources().getColor(R.color.RecoveredColor)
-                                )
-                                setCustomColor(
-                                    mBottomSheetDialog.Critical,
-                                    "• Critical : ",
-                                    String.format("%,d", (country[position].critical)),
-                                    getResources().getColor(R.color.CriticalColor)
-                                )
-                                setCustomColor(
-                                    mBottomSheetDialog.active,
-                                    "• Active : ",
-                                    String.format("%,d", (country[position].active)),
-                                    Color.BLACK
-                                )
-                                setCustomColor(
-                                    mBottomSheetDialog.casesPerOneMillion,
-                                    "• Cases/1M : ",
-                                    String.format(
-                                        "%,d",
-                                        (country[position].casesPerOneMillion!!.toInt())
-                                    ), Color.BLUE
-                                )
-                                mBottomSheetDialog.show()
+                                showBottomDialog(country, position);
 
                             }
                         })
@@ -126,33 +65,73 @@ class Countries : Fragment() {
     }
 
     private fun initViews(root: View) {
+        helper = Helper()
         progressBar = root.findViewById(R.id.loading)
         recyclerView = root.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(root.context, 1)
         recyclerView.hasFixedSize()
     }
 
-    public fun setCustomColor(
-        textView: TextView,
-        label: String,
-        value: String,
-        ColorHex: Int
-    ) {
-        val LabelValue: String = label + value;
-        val spannable: Spannable = SpannableString(LabelValue);
-        spannable.setSpan(
-            ForegroundColorSpan(ColorHex),
-            label.length,
-            (label + value).length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
-        spannable.setSpan(
-            android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-            label.length,
-            (label + value).length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
-        textView.setText(spannable, TextView.BufferType.SPANNABLE);
-    }
 
+    fun showBottomDialog(country: ArrayList<Country>?, position: Int) {
+        val mBottomSheetDialog = RoundedBottomSheetDialog(root.context)
+        val sheetView = LayoutInflater.from(context)
+            .inflate(R.layout.bottom_dialog, null)
+        mBottomSheetDialog.setContentView(sheetView)
+        Glide.with(activity!!.applicationContext)
+            .load(country!![position].countryInfo.flag)
+            .into(mBottomSheetDialog.countryFlag)
+        mBottomSheetDialog.countryName.setText(country[position].country)
+        helper.setCustomColor(
+            mBottomSheetDialog.Cases,
+            "• Cases : ",
+            String.format("%,d", (country[position].cases)),
+            getResources().getColor(R.color.CasesColor)
+        )
+        helper.setCustomColor(
+            mBottomSheetDialog.TodayCases,
+            "• Today cases : ",
+            String.format("%,d", (country[position].todayCases)),
+            getResources().getColor(R.color.TodayCasesColor)
+        )
+        helper.setCustomColor(
+            mBottomSheetDialog.Deaths,
+            "• Deaths : ",
+            String.format("%,d", (country[position].deaths)),
+            getResources().getColor(R.color.DeathsColor)
+        )
+        helper.setCustomColor(
+            mBottomSheetDialog.TodayDeaths,
+            "• Today deaths : ",
+            String.format("%,d", (country[position].todayDeaths)),
+            getResources().getColor(R.color.TodayDeathsColor)
+        )
+        helper.setCustomColor(
+            mBottomSheetDialog.recovered,
+            "• Recovered : ",
+            String.format("%,d", (country[position].recovered)),
+            getResources().getColor(R.color.RecoveredColor)
+        )
+        helper.setCustomColor(
+            mBottomSheetDialog.Critical,
+            "• Critical : ",
+            String.format("%,d", (country[position].critical)),
+            getResources().getColor(R.color.CriticalColor)
+        )
+        helper.setCustomColor(
+            mBottomSheetDialog.active,
+            "• Active : ",
+            String.format("%,d", (country[position].active)),
+            Color.BLACK
+        )
+        helper.setCustomColor(
+            mBottomSheetDialog.casesPerOneMillion,
+            "• Cases/1M : ",
+            String.format(
+                "%,d",
+                (country[position].casesPerOneMillion!!.toInt())
+            ), Color.BLUE
+        )
+        mBottomSheetDialog.show()
+    }
 }

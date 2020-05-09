@@ -13,7 +13,7 @@ class CoronaClient {
 
 
     init {
-        val mRetrofit: Retrofit = Retrofit.Builder().baseUrl("https://corona.lmao.ninja/")
+        val mRetrofit: Retrofit = Retrofit.Builder().baseUrl("https://corona.lmao.ninja/v2/")
             .addConverterFactory(GsonConverterFactory.create()).build()
         mCoronaInterface = mRetrofit.create(CoronaInterface::class.java)
     }
